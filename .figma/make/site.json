@@ -1,0 +1,10 @@
+{
+  "description": "Showcase your creative work with a bold, stylish single-page portfolio inspired by Persona 5, perfect for artists and designers looking to make a statement.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
