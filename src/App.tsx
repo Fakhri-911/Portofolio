@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, type MouseEvent } from 'react'
 
 // ─── Data ────────────────────────────────────────────────────────────────────
-const NAV_ITEMS = ['About', 'Skills', 'Projects', 'Contact']
+const NAV_ITEMS = ['About', 'Skills', 'Exploring', 'Projects', 'Contact']
 
 const STATS = [
   { label: 'Knowledge', value: 85, color: '#4fc3f7' },
@@ -18,6 +18,15 @@ const SKILLS = [
   { name: 'MySQL / Relational DB', level: 80, tag: 'DATABASE' },
   { name: 'UI / UX Design', level: 78, tag: 'DESIGN' },
   { name: 'IT & Network Support', level: 85, tag: 'OPERATION / SYSTEMS' },
+]
+
+const EXPLORING_SKILLS = [
+  { name: 'React / Next.js', level: 55, tag: 'FRONTEND' },
+  { name: 'TypeScript', level: 50, tag: 'LANGUAGE' },
+  { name: 'Node.js / Express', level: 55, tag: 'BACKEND' },
+  { name: 'Python', level: 60, tag: 'LANGUAGE' },
+  { name: 'PostgreSQL', level: 60, tag: 'DATABASE' },
+  { name: 'Three.js / WebGL', level: 50, tag: 'GRAPHICS' },
 ]
 
 const PROJECTS = [
@@ -366,8 +375,8 @@ function AboutSection() {
         }}
       />
 
-      <div className="max-w-7xl mx-auto px-8 md:px-16">
-        <div className="grid gap-16" style={{ gridTemplateColumns: '1fr 1fr', alignItems: 'center' }}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left: Character card */}
           <div>
             <div
@@ -809,6 +818,213 @@ function SkillsSection() {
   )
 }
 
+function ExploringSection() {
+  const ref = useRef<HTMLElement>(null)
+  const visible = useIntersectionObserver(ref)
+
+  return (
+    <section
+      id="exploring"
+      ref={ref}
+      className={`section-hidden ${visible ? 'section-visible' : ''}`}
+      style={{
+        padding: '120px 0',
+        background: '#0a0a0a',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
+      {/* Background decoration */}
+      <div
+        className="absolute top-0 left-0 w-full h-full pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at 20% 50%, rgba(232,0,29,0.06) 0%, transparent 60%)',
+        }}
+      />
+
+      {/* Diagonal accent */}
+      <div
+        className="absolute top-0 left-0 w-full h-2"
+        style={{ background: 'var(--p5-red)' }}
+      />
+      <div
+        className="absolute bottom-0 left-0 w-full h-2"
+        style={{ background: 'var(--p5-red)' }}
+      />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16">
+        {/* Header */}
+        <div className="flex items-end justify-between mb-16 flex-wrap gap-6">
+          <div>
+            <div
+              style={{
+                fontFamily: "'Space Mono', monospace",
+                fontSize: '0.7rem',
+                letterSpacing: '0.25em',
+                color: 'var(--p5-red)',
+                textTransform: 'uppercase',
+                marginBottom: 12,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+              }}
+            >
+              <div style={{ width: 24, height: 2, background: 'var(--p5-red)' }} />
+              Section 03 — Exploring
+            </div>
+            <h2
+              style={{
+                fontFamily: "'Big Shoulders Display', sans-serif",
+                fontWeight: 900,
+                fontSize: 'clamp(3rem, 6vw, 5.5rem)',
+                lineHeight: 0.9,
+                color: 'var(--p5-white)',
+              }}
+            >
+              EXPLORING
+              <br />
+              <span style={{ color: 'var(--p5-red)' }}>TECH & SKILLS</span>
+            </h2>
+          </div>
+          <div
+            style={{
+              fontFamily: "'Space Mono', monospace",
+              fontSize: '0.75rem',
+              color: 'rgba(245,245,245,0.3)',
+              letterSpacing: '0.1em',
+            }}
+          >
+            — IN TRAINING / EXPLORING —
+          </div>
+        </div>
+
+        {/* Skills grid */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+            gap: 16,
+          }}
+        >
+          {EXPLORING_SKILLS.map((skill, i) => (
+            <div
+              key={skill.name}
+              style={{
+                background: 'var(--p5-gray)',
+                border: '1px solid rgba(232,0,29,0.2)',
+                padding: '24px 28px',
+                clipPath: 'polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px))',
+                transition: 'border-color 0.2s, transform 0.2s',
+                animationDelay: `${i * 0.1}s`,
+              }}
+              onMouseEnter={(e) => {
+                const el = e.currentTarget as HTMLElement
+                el.style.borderColor = 'rgba(232,0,29,0.8)'
+                el.style.transform = 'translateY(-4px)'
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget as HTMLElement
+                el.style.borderColor = 'rgba(232,0,29,0.2)'
+                el.style.transform = 'translateY(0)'
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'flex-start',
+                  marginBottom: 16,
+                }}
+              >
+                <h3
+                  style={{
+                    fontFamily: "'Rajdhani', sans-serif",
+                    fontWeight: 700,
+                    fontSize: '1.25rem',
+                    color: 'var(--p5-white)',
+                    letterSpacing: '0.05em',
+                  }}
+                >
+                  {skill.name}
+                </h3>
+                <span
+                  style={{
+                    fontFamily: "'Space Mono', monospace",
+                    fontSize: '0.55rem',
+                    letterSpacing: '0.2em',
+                    color: 'var(--p5-red)',
+                    background: 'rgba(232,0,29,0.1)',
+                    border: '1px solid rgba(232,0,29,0.3)',
+                    padding: '3px 8px',
+                  }}
+                >
+                  {skill.tag}
+                </span>
+              </div>
+
+              {/* Level bar */}
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                }}
+              >
+                <div
+                  style={{
+                    flex: 1,
+                    height: 3,
+                    background: 'rgba(255,255,255,0.08)',
+                    position: 'relative',
+                  }}
+                >
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: 0, left: 0, height: '100%',
+                      width: visible ? `${skill.level}%` : '0%',
+                      background: `linear-gradient(to right, var(--p5-red), #ff6b6b)`,
+                      transition: `width 1.2s cubic-bezier(0.16,1,0.3,1) ${i * 0.1}s`,
+                    }}
+                  />
+                </div>
+                <span
+                  style={{
+                    fontFamily: "'Space Mono', monospace",
+                    fontSize: '0.65rem',
+                    color: 'var(--p5-red)',
+                    minWidth: 32,
+                    textAlign: 'right',
+                  }}
+                >
+                  {skill.level}
+                </span>
+              </div>
+
+              {/* Dotted level indicator */}
+              <div style={{ display: 'flex', gap: 3, marginTop: 10 }}>
+                {Array.from({ length: 10 }).map((_, di) => (
+                  <div
+                    key={di}
+                    style={{
+                      width: 8,
+                      height: 8,
+                      background: di < Math.round(skill.level / 10) ? 'var(--p5-red)' : 'rgba(255,255,255,0.08)',
+                      clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)',
+                      transition: `background 0.05s ${visible ? di * 0.05 + i * 0.1 : 0}s`,
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+
 function ProjectCard({ project, index }: { project: typeof PROJECTS[0]; index: number }) {
   const [flipped, setFlipped] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
@@ -999,7 +1215,7 @@ function ProjectsSection() {
               }}
             >
               <div style={{ width: 24, height: 2, background: 'var(--p5-red)' }} />
-              Section 03 — Operations
+              Section 04 — Operations
             </div>
             <h2
               style={{
@@ -1101,15 +1317,8 @@ function ContactSection() {
         HEIST
       </div>
 
-      <div className="max-w-7xl mx-auto px-8 md:px-16">
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '80px',
-            alignItems: 'start',
-          }}
-        >
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           {/* Left */}
           <div>
             <div
@@ -1126,7 +1335,7 @@ function ContactSection() {
               }}
             >
               <div style={{ width: 24, height: 2, background: 'var(--p5-red)' }} />
-              Section 04 — Reach Out
+              Section 05 — Reach Out
             </div>
 
             <h2
@@ -1490,7 +1699,7 @@ export default function App() {
         </a>
 
         {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-8" style={{ display: 'flex', gap: 32 }}>
+        <div className="hidden md:flex items-center gap-8">
           {NAV_ITEMS.map((item) => (
             <a key={item} href={`#${item.toLowerCase()}`} className="nav-link">
               {item}
@@ -1498,8 +1707,9 @@ export default function App() {
           ))}
         </div>
 
-        {/* Hamburger */}
+        {/* Hamburger (Mobile only) */}
         <button
+          className="md:hidden"
           onClick={() => setMenuOpen(!menuOpen)}
           style={{
             background: 'none',
@@ -1567,6 +1777,7 @@ export default function App() {
       <TickerSection />
       <AboutSection />
       <SkillsSection />
+      <ExploringSection />
       <ProjectsSection />
       <ContactSection />
       <Footer />
