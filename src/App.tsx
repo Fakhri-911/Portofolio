@@ -1266,11 +1266,41 @@ function ContactSection() {
   const ref = useRef<HTMLElement>(null)
   const visible = useIntersectionObserver(ref)
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('')
   const [form, setForm] = useState({ name: '', email: '', message: '' })
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    setSubmitted(true)
+    setLoading(true)
+    setErrorMsg('')
+
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/fawwazaydinf@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          message: form.message,
+          _subject: `New Calling Card from ${form.name} (${form.email})`,
+          _captcha: 'false',
+        }),
+      })
+
+      if (res.ok) {
+        setSubmitted(true)
+      } else {
+        setErrorMsg('Failed to transmit message. Please try again.')
+      }
+    } catch (err) {
+      setErrorMsg('Network error. Please check your connection and try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const inputStyle: React.CSSProperties = {
@@ -1512,6 +1542,7 @@ function ContactSection() {
                   type="text"
                   placeholder="Your name"
                   required
+                  disabled={loading}
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   style={inputStyle}
@@ -1523,6 +1554,7 @@ function ContactSection() {
                   type="email"
                   placeholder="Your email"
                   required
+                  disabled={loading}
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                   style={inputStyle}
@@ -1533,6 +1565,7 @@ function ContactSection() {
                 <textarea
                   placeholder="Your message — be bold."
                   required
+                  disabled={loading}
                   rows={5}
                   value={form.message}
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
@@ -1541,11 +1574,24 @@ function ContactSection() {
                   onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(232,0,29,0.25)' }}
                 />
 
+                {errorMsg && (
+                  <div
+                    style={{
+                      fontFamily: "'Space Mono', monospace",
+                      fontSize: '0.75rem',
+                      color: 'var(--p5-red)',
+                    }}
+                  >
+                    ⚠ {errorMsg}
+                  </div>
+                )}
+
                 <button
                   type="submit"
+                  disabled={loading}
                   style={{
                     padding: '16px',
-                    background: 'var(--p5-red)',
+                    background: loading ? 'rgba(232,0,29,0.5)' : 'var(--p5-red)',
                     border: 'none',
                     color: 'var(--p5-white)',
                     fontFamily: "'Big Shoulders Display', sans-serif",
@@ -1553,14 +1599,14 @@ function ContactSection() {
                     fontSize: '1.2rem',
                     letterSpacing: '0.15em',
                     textTransform: 'uppercase',
-                    cursor: 'pointer',
+                    cursor: loading ? 'not-allowed' : 'pointer',
                     clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))',
                     transition: 'opacity 0.2s',
                   }}
-                  onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.85' }}
-                  onMouseLeave={(e) => { e.currentTarget.style.opacity = '1' }}
+                  onMouseEnter={(e) => { if (!loading) e.currentTarget.style.opacity = '0.85' }}
+                  onMouseLeave={(e) => { if (!loading) e.currentTarget.style.opacity = '1' }}
                 >
-                  SEND CALLING CARD
+                  {loading ? 'TRANSMITTING...' : 'SEND CALLING CARD'}
                 </button>
               </form>
             )}
