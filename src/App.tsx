@@ -1453,7 +1453,8 @@ function ContactSection() {
               {[
                 { name: 'GitHub', url: 'https://github.com/Fakhri-911' },
                 { name: 'Instagram', url: 'https://instagram.com/fakhri_bosca/' },
-                { name: 'LinkedIn', url: 'https://linkedin.com/in/fakhri-fawwaz-aydin' }
+                { name: 'LinkedIn', url: 'https://linkedin.com/in/fakhri-fawwaz-aydin' },
+                { name: 'Itch.io', url: 'https://fakhri-911.itch.io' },
               ].map((social) => (
                 <a
                   key={social.name}
