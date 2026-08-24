@@ -18,6 +18,9 @@ const SKILLS = [
   { name: 'MySQL / Relational DB', level: 80, tag: 'DATABASE' },
   { name: 'UI / UX Design', level: 78, tag: 'DESIGN' },
   { name: 'IT & Network Support', level: 85, tag: 'OPERATION / SYSTEMS' },
+  { name: 'GDScript', level: 80, tag: 'GAME DEVELOPMENT' },
+  { name: 'Functional & Gameplay Testing', level: 78, tag: 'QA TESTING' },
+  { name: 'Bug Identification & Documentation', level: 77, tag: 'QA TESTING' },
 ]
 
 const EXPLORING_SKILLS = [
@@ -57,15 +60,24 @@ const PROJECTS = [
     status: 'COMPLETE',
     year: '2026',
   },
+  {
+    code: 'OP-04',
+    name: 'Undergraduate Thesis — Game Design',
+    type: 'Game Edukasi Literasi Keuangan UMKM',
+    desc: 'Designed and built an educational game from the ground up — from game mechanics and core logic to implementation — with a focus on MSME (small business) financial literacy. Conducted iterative self-testing across functional and gameplay aspects, documenting and fixing bugs through multiple cycles to ensure a stable build ahead of the final thesis defense.',
+    tags: ['GAME DESIGN', 'GAME DEVELOPMENT', 'QA TESTING', 'EDUCATION', 'GODOT ENGINE'],
+    status: 'ONGOING',
+    year: '2025 - 2026',
+  },
 
 ]
 
 const TICKER_TEXT = [
   'FULL-STACK DEVELOPER', '✦', 'SYSTEM ARCHITECT', '✦',
   'UI ARCHITECT', '✦', 'CREATIVE CODER', '✦',
-  'TECH TROUBLESHOOTER', '✦', 'FULL-STACK DEVELOPER', '✦',
-  'SYSTEM ARCHITECT', '✦', 'UI ARCHITECT', '✦',
-  'CREATIVE CODER', '✦', 'TECH TROUBLESHOOTER', '✦',
+  'GAME DEVELOPER', '✦', 'QA TESTER', '✦',
+  'GAME DESIGNER', '✦', 'GENERATIVE AI PROMPTING', '✦',
+  'TECH TROUBLESHOOTER', '✦'
 ]
 
 // ─── Hooks ───────────────────────────────────────────────────────────────────
@@ -207,8 +219,8 @@ function HeroSection() {
             animationDelay: '0.5s',
           }}
         >
-          Informatics engineering student & software developer.
-          Bridging the gap between creative web development and seamless IT infrastructure management.
+          Informatics engineering student & software builder.
+          From front-end interfaces to backend systems and IT infrastructure — engineered with precision and tested with care.
         </p>
 
         {/* CTA buttons */}
@@ -578,13 +590,17 @@ function AboutSection() {
               }}
             >
               <p>
-                I am a Full-Stack Developer passionate about engineering scalable,
-                high-performance web applications that deliver seamless digital experiences.
+                I am a Software Developer with hands-on experience across the full stack,
+                from crafting responsive front-end interfaces to building backend systems and supporting IT infrastructure.
               </p>
               <p>
-                Combining robust backend architectures with intuitive frontend design,
-                I turn complex requirements into clean, maintainable, and efficient code.
-                Currently open for software engineering opportunities and impactful tech collaborations.
+                What sets my work apart is an uncompromising attention to detail:
+                I don't just build, I test. My undergraduate thesis is a 2D mobile educational game for MSME financial literacy and took me through the entire Game Development Life Cycle (GDLC).
+                This involved rigorous independent functional and gameplay testing to ensure a stable, polished result.
+                That same QA mindset carries into every project I take on, whether it is a web platform or interactive software.
+              </p>
+              <p>
+                Currently open for opportunities in quality assurance, game testing, IT Support and software development.
               </p>
               <p>
                 Based in <span style={{ color: 'var(--p5-red)' }}>Bandung, Indonesia</span> —
@@ -1437,8 +1453,7 @@ function ContactSection() {
               {[
                 { name: 'GitHub', url: 'https://github.com/Fakhri-911' },
                 { name: 'Instagram', url: 'https://instagram.com/fakhri_bosca/' },
-                { name: 'LinkedIn', url: 'https://linkedin.com/in/fakhri-fawwaz-aydin' },
-                { name: 'Threads', url: 'https://threads.net/fakhri_bosca' },
+                { name: 'LinkedIn', url: 'https://linkedin.com/in/fakhri-fawwaz-aydin' }
               ].map((social) => (
                 <a
                   key={social.name}
